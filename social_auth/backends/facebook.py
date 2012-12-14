@@ -112,6 +112,9 @@ class FacebookAuth(BaseOAuth2):
         if 'code' in self.data:
             state = self.validate_state()
             print state
+            print backend_setting(self, self.SETTINGS_KEY_NAME)
+            print self.get_redirect_uri(state)
+            print backend_setting(self, self.SETTINGS_SECRET_NAME)
             url = ACCESS_TOKEN + urlencode({
                 'client_id': backend_setting(self, self.SETTINGS_KEY_NAME),
                 'redirect_uri': self.get_redirect_uri(state),
