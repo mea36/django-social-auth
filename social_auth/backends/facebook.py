@@ -104,11 +104,14 @@ class FacebookAuth(BaseOAuth2):
 
     def auth_complete(self, *args, **kwargs):
         """Completes loging process, must return user instance"""
+        print 'in auth_complete'
         access_token = None
         expires = None
 
+        print self.data
         if 'code' in self.data:
             state = self.validate_state()
+            print 'state = %s' % state
             url = ACCESS_TOKEN + urlencode({
                 'client_id': backend_setting(self, self.SETTINGS_KEY_NAME),
                 'redirect_uri': self.get_redirect_uri(state),
@@ -118,6 +121,7 @@ class FacebookAuth(BaseOAuth2):
                 ),
                 'code': self.data['code']
             })
+            print 'url = %s' % url
             try:
                 response = cgi.parse_qs(dsa_urlopen(url).read())
             except HTTPError:
@@ -127,6 +131,8 @@ class FacebookAuth(BaseOAuth2):
             access_token = response['access_token'][0]
             if 'expires' in response:
                 expires = response['expires'][0]
+        else
+            'there was no code in self.data'
 
         if 'signed_request' in self.data:
             response = load_signed_request(
