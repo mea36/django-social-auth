@@ -111,7 +111,7 @@ class FacebookAuth(BaseOAuth2):
         print self.data
         if 'code' in self.data:
             state = self.validate_state()
-            print 'state = %s' % state
+            print state
             url = ACCESS_TOKEN + urlencode({
                 'client_id': backend_setting(self, self.SETTINGS_KEY_NAME),
                 'redirect_uri': self.get_redirect_uri(state),
@@ -121,7 +121,7 @@ class FacebookAuth(BaseOAuth2):
                 ),
                 'code': self.data['code']
             })
-            print 'url = %s' % url
+            print url
             try:
                 response = cgi.parse_qs(dsa_urlopen(url).read())
             except HTTPError:
