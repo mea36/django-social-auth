@@ -123,7 +123,7 @@ class FacebookAuth(BaseOAuth2):
                     self.SETTINGS_SECRET_NAME
                 ),
                 'code': self.data['code']
-            })
+            }) + "/"
             print url
             try:
                 response = cgi.parse_qs(dsa_urlopen(url).read())
