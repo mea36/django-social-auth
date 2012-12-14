@@ -131,8 +131,6 @@ class FacebookAuth(BaseOAuth2):
             access_token = response['access_token'][0]
             if 'expires' in response:
                 expires = response['expires'][0]
-        else
-            'there was no code in self.data'
 
         if 'signed_request' in self.data:
             response = load_signed_request(
