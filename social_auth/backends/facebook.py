@@ -104,7 +104,7 @@ class FacebookAuth(BaseOAuth2):
 
     def auth_complete(self, *args, **kwargs):
         """Completes loging process, must return user instance"""
-        print 'in auth_complete'
+        print 'in auth_complete v2'
         access_token = None
         expires = None
 
@@ -123,7 +123,7 @@ class FacebookAuth(BaseOAuth2):
                     self.SETTINGS_SECRET_NAME
                 ),
                 'code': self.data['code']
-            }) + "/"
+            })
             print url
             try:
                 response = cgi.parse_qs(dsa_urlopen(url).read())
