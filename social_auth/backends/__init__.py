@@ -833,12 +833,15 @@ class BaseOAuth2(BaseOAuth):
     @classmethod
     def refresh_token_params(cls, token):
         client_id, client_secret = cls.get_key_and_secret()
-        return {
+        print 'in refresh_token_params'
+        retval =  {
             'refresh_token': token,
             'grant_type': 'refresh_token',
             'client_id': client_id,
             'client_secret': client_secret
         }
+        print retval
+        return retval
 
     @classmethod
     def process_refresh_token_response(cls, response):
@@ -851,6 +854,9 @@ class BaseOAuth2(BaseOAuth):
             data=urlencode(cls.refresh_token_params(token)),
             headers=cls.auth_headers()
         )
+        print cls.REFRESH_TOKEN_URL or cls.ACCESS_TOKEN_URL
+        print urlencode(cls.refresh_token_params(token))
+        print cls.auth_headers()
         return cls.process_refresh_token_response(
             dsa_urlopen(request).read()
         )
